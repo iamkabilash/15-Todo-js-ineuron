@@ -1,7 +1,6 @@
 const input = document.querySelector(".input");
 const add = document.querySelector(".addButton");
 const container = document.querySelector(".container");
-const deleteButton = document.querySelector(".deleteButton");
 
 function createTodo() {
     if(input.value !== ""){
@@ -18,6 +17,8 @@ function createTodo() {
         const editButton = document.createElement("button");
         editButton.innerText = "EDIT";
         editButton.classList.add("editButton")
+        editButton.setAttribute("onclick", "editTodo()");
+
         const deleteButton = document.createElement("button");
         deleteButton.innerText = "DELETE";
         deleteButton.classList.add("deleteButton")
@@ -34,8 +35,15 @@ function createTodo() {
 }
 
 function deleteTodo() {
-    const item = document.querySelector(".item");
-    item.remove();
+    document.activeElement.parentElement.parentElement.remove();
+}
+
+function editTodo() {
+    let oldTodo = document.activeElement.parentElement.parentElement.firstChild.innerText;
+    document.activeElement.parentElement.parentElement.remove();
+    input.value = oldTodo;
+    input.focus();
 }
 
 add.addEventListener("click", createTodo);
+
